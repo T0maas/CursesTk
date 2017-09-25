@@ -6,6 +6,6 @@ includedir=${prefix}/include
 Name: cursestk
 Description: oop library for console framework based on curses
 Version: 0.1
-Libs: -lcursestk
+Libs: -lcursestk -lncurses
 Cflags: -I/usr/local/include
 
