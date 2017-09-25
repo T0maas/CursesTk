@@ -20,5 +20,5 @@ AC_CHECK_HEADERS([stdlib.h])
 #AC_CHECK_FUNCS([pow sqrt])
 
 
-AC_CONFIG_FILES([Makefile src/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile cursestk.pc])
 AC_OUTPUT
