@@ -1,3 +1,6 @@
 /example/*.o
 /example/main
 /src/*.o
+/src/.libs
+/src/*.lo
+/src/*.la
