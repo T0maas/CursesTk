@@ -1,19 +1,27 @@
 #include <curses.h>
 #include <string>
 #include <vector>
+#ifndef CURSEST_H
+#define CURSEST_H
 
+namespace cursestk {
 class Label {
 
 public:
 	std::string Text;
 	Label();
+	int hpos,vpos;
 };
 
 class Button {
 public:
 	std::string Text;
 	Button();
-	int hsize=3,vsize=10,sel=0;
+	bool connected=false;
+	int hsize=3,vsize=10,sel=0,hpos,vpos;
+	void (*funct)(void);
+
+	void connect(void fcn(void ));
 
 };
 
@@ -21,7 +29,7 @@ class TextBox{
 public:
 	TextBox();
 	std::string Text;
-	int hsize=1,vsize=6,sel=0;
+	int hsize=1,vsize=6,sel=0,vpos,hpos;
 	bool editing=false;
 	void edit(bool tf);
 };
@@ -51,11 +59,16 @@ public:
 	void set_pos(int _hpos,int _wpos);
 	void show();
 	void destroy();
-	void Put(Label * label,int _hpos,int _wpos);
-	void Put(Button * button,int _hpos,int _wpos);
-	void Put(TextBox * textbox,int _hpos,int _wpos);
+	void Put(Label * label,int _hpos,int _vpos);
+	void Put(Button * button,int _hpos,int _vpos);
+	void Put(TextBox * textbox,int _hpos,int _vpos);
 	void Update();
 	int getwinchar();
 	void DeselAll();
+	void ctkInit();
 
 };
+}
+
+
+#endif
