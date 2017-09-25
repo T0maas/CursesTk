@@ -8,9 +8,7 @@ using namespace cursestk;
 class MyWin : public Window {
 private:
 
-
-
-
+	
 
 public:
 	MyWin();

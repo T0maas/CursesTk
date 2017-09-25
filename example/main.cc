@@ -6,10 +6,15 @@
 using namespace std;
 
 
-
+MyWin * win1;
 int main() {
-	MyWin * win1 = new MyWin();
+	 win1 = new MyWin();
 	win1 -> run();
+
 	return 0;
 }
 
+void on_button3_clicked(){
+	win1 -> destroy();
+	exit(0);
+}
