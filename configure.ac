@@ -15,7 +15,7 @@ LT_INIT
 AC_CHECK_HEADERS([stdlib.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
-
+PKG_CHECK_MODULES([ncurses],[ncurses > 5.0])
 # Checks for library functions.
 #AC_CHECK_FUNCS([pow sqrt])
 
