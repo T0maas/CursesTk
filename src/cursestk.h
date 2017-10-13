@@ -13,15 +13,23 @@ public:
 	int hpos,vpos;
 };
 
+class Event {
+public:
+	virtual void invoke() {};
+};
+
 class Button {
 public:
 	std::string Text;
 	Button();
-	bool connected=false;
+	bool connected=true;
 	int hsize=3,vsize=10,sel=0,hpos,vpos;
-	void (*funct)(void);
 
-	void connect(void fcn(void ));
+	Event * ButtonClickEvent = new Event();
+	void click() {
+		ButtonClickEvent -> invoke();
+	}
+
 
 };
 
@@ -53,6 +61,7 @@ private:
 
 public:
 	Window();
+	~Window();
 	std::string title;
 	bool editlock = false;
 	void set_size(int _hsize,int _wsize);
@@ -66,6 +75,25 @@ public:
 	int getwinchar();
 	void DeselAll();
 	void ctkInit();
+	void dummy() {
+
+	}
+
+	template <typename Object = Window>
+	class ButtonClickEvent : public Event {
+	private:
+		Object * m_Obj;
+		void(Object::* m_Func)();
+	public:
+
+		ButtonClickEvent(Object* object, void(Object::* func)() ) {
+			m_Obj = object;
+			m_Func = func;
+		}
+		virtual void invoke() {
+			(m_Obj ->*m_Func)();
+		}
+	};
 
 };
 }

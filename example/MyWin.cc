@@ -5,23 +5,6 @@ MyWin::MyWin() {
 }
 
 
-Label * label1;
-TextBox * textbox1;
-Button * button1;
-Button * button2;
-Button * button3;
-
-void on_button1_clicked() {
-		textbox1 -> Text = "hello";
-	}
-void on_button2_clicked() {
-		label1 -> Text = textbox1 -> Text;
-	}
-
-	void on_button3_clicked();
-
-
-
 void MyWin::InitializeComponents(){
 	label1 = new Label();
 	textbox1 = new TextBox();
@@ -41,9 +24,10 @@ void MyWin::InitializeComponents(){
 	button2 -> vsize = 10;
 	button2 -> hsize = 3;
 	button3 -> Text = "Exit";
-	button1 -> connect(on_button1_clicked);
-	button2 -> connect(on_button2_clicked);
-	button3 -> connect(on_button3_clicked);
+	button1 -> ButtonClickEvent = new ButtonClickEvent<MyWin>(this,&MyWin::on_button1_clicked);
+	button2 -> ButtonClickEvent = new ButtonClickEvent<MyWin>(this,&MyWin::on_button2_clicked);
+	button3 -> ButtonClickEvent = new ButtonClickEvent<MyWin>(this,&MyWin::on_button3_clicked);
+
 	textbox1 -> vsize += 3;
 	textbox1 -> Text = "sample";
 }

@@ -36,11 +36,22 @@ void Window::show() {
 	
 	}
 void Window::destroy() {
+
+
+	button_instance.clear();
+	buttons.clear();
+	textbox_instance.clear();
+	textboxs.clear();
+	label_instance.clear();
+	labels.clear();
+	Update();
+	refresh();
 	endwin();
+
 	}
 	
 void Window::Put(Label * label,int _vpos,int _hpos) {
-	labels.push_back(newwin(3,10,hpos + _vpos , wpos + _hpos ));
+	labels.push_back(newwin(1,6,hpos + _vpos , wpos + _hpos ));
 	label->hpos = _hpos;
 	label->vpos = _vpos;
 	label_instance.push_back(label);
@@ -56,6 +67,7 @@ void Window::Put(Button * button,int _vpos,int _hpos) {
 	button->hpos = _hpos;
 	button->vpos = _vpos;
 	button_instance.push_back(button);
+
 	init_pair(2, COLOR_WHITE, COLOR_RED);
 	wbkgd(buttons[buttons.size() -1], COLOR_PAIR(2));
 	
@@ -109,7 +121,7 @@ void Window::Update() {
 
 	for (int i=0;i < labels.size();i++ ){
 			werase(labels[i]);
-			mvwprintw(labels[i],1,1,(label_instance[i] ->Text).c_str() );
+			mvwprintw(labels[i],0,0,(label_instance[i] ->Text).c_str() );
 			wrefresh(labels[i]);
 			wrefresh(win);
 		}
@@ -301,7 +313,7 @@ void Window::ctkInit()
 				case 10:
 					for (int i=0;i < button_instance.size();i++)
 						if (button_instance[i] -> sel == true && button_instance[i] -> connected == true )
-							button_instance[i] -> funct();
+							button_instance[i]->click();
 					for (int i=0;i < textbox_instance.size();i++)
 					{
 						if (textbox_instance[i] -> sel == true)
@@ -340,16 +352,14 @@ Label::Label() {
 	}
 	
 Button::Button() {
-	
+
 	}
 	
 TextBox::TextBox() {
 	
 	}
 
-
-void Button::connect(void fcn(void))
-{
-	connected = true;
-	funct = fcn;
+Window::~Window() {
+	endwin();
+	delete win;
 }
