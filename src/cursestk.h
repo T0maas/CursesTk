@@ -1,8 +1,10 @@
+#ifndef CURSEST_H
+#define CURSEST_H
+
 #include <curses.h>
 #include <string>
 #include <vector>
-#ifndef CURSEST_H
-#define CURSEST_H
+#include "events.h"
 
 namespace cursestk {
 class Label {
@@ -13,10 +15,6 @@ public:
 	int hpos,vpos;
 };
 
-class Event {
-public:
-	virtual void invoke() {};
-};
 
 class Button {
 public:
@@ -27,7 +25,7 @@ public:
 
 	Event * ButtonClickEvent = new Event();
 	void click() {
-		ButtonClickEvent -> invoke();
+		ButtonClickEvent -> Invoke();
 	}
 
 
@@ -42,7 +40,7 @@ public:
 	void edit(bool tf);
 };
 
-class Window
+class Window : public Object
 {
 
 private:
@@ -79,21 +77,6 @@ public:
 
 	}
 
-	template <typename Object = Window>
-	class ButtonClickEvent : public Event {
-	private:
-		Object * m_Obj;
-		void(Object::* m_Func)();
-	public:
-
-		ButtonClickEvent(Object* object, void(Object::* func)() ) {
-			m_Obj = object;
-			m_Func = func;
-		}
-		virtual void invoke() {
-			(m_Obj ->*m_Func)();
-		}
-	};
 
 };
 }

@@ -1,4 +1,5 @@
 #include "MyWin.h"
+#include "events.h"
 
 MyWin::MyWin() {
 	InitializeComponents();
@@ -24,9 +25,9 @@ void MyWin::InitializeComponents(){
 	button2 -> vsize = 10;
 	button2 -> hsize = 3;
 	button3 -> Text = "Exit";
-	button1 -> ButtonClickEvent = new ButtonClickEvent<MyWin>(this,&MyWin::on_button1_clicked);
-	button2 -> ButtonClickEvent = new ButtonClickEvent<MyWin>(this,&MyWin::on_button2_clicked);
-	button3 -> ButtonClickEvent = new ButtonClickEvent<MyWin>(this,&MyWin::on_button3_clicked);
+	button1 -> ButtonClickEvent = new Event(this,&MyWin::on_button1_clicked);
+	button2 -> ButtonClickEvent = new Event(this,&MyWin::on_button2_clicked);
+	button3 -> ButtonClickEvent = new Event(this,&MyWin::on_button3_clicked);
 
 	textbox1 -> vsize += 3;
 	textbox1 -> Text = "sample";
